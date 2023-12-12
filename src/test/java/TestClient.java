@@ -64,4 +64,18 @@ public class TestClient {
                 .assertThat().body(containsString(bodyOfExpectedResponse));
     }
 
+    @Test
+    @DisplayName("When deleting a client, then the information of the removed client should be shown")
+    public void deleteAClient() {
+        int clientId = 3;
+        String bodyOfExpectedResponse = "CLIENTE REMOVIDO: { NOME: Beatriz, IDADE: 24, ID: "+clientId+" }";
+        given()
+                .contentType(ContentType.JSON)
+        .when()
+                .delete(clientApiAddress+endpoitClient+"/"+clientId)
+        .then()
+                .statusCode(200)
+                .assertThat().body(containsString(bodyOfExpectedResponse));
+    }
+
 }
