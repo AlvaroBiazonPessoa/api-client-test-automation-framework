@@ -8,4 +8,19 @@ public class TestClient {
 
     String clientApiAddress = "http://localhost:8080/";
 
+    @Test
+    @DisplayName("When get all customers then list should be empty")
+    public void getAllClients() {
+
+        String expectedResponse = "{}";
+
+        given()
+                .contentType(ContentType.JSON)
+        .when()
+                .get(clientApiAddress)
+        .then()
+                .statusCode(200)
+                .assertThat().body(new IsEqual<>(expectedResponse));
+    }
+
 }
