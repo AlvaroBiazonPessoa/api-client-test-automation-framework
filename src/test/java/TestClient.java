@@ -9,7 +9,7 @@ public class TestClient {
     String clientApiAddress = "http://localhost:8080/";
 
     @Test
-    @DisplayName("When get all customers then list should be empty")
+    @DisplayName("When get all clients then list should be empty")
     public void getAllClients() {
 
         String expectedResponse = "{}";
