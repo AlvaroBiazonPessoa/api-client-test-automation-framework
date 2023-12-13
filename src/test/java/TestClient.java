@@ -88,4 +88,19 @@ public class TestClient {
                 .assertThat().body(new IsEqual<>(emptyClientList));
     }
 
+    /*
+     * Register a client
+     * @param clientToRegister client type object to be registered
+     * @return response to the HTTP request made
+     * @author Alvaro Biazon Pessoa
+     */
+    public ValidatableResponse registerClient(Client clientToRegister) {
+        return given()
+                        .contentType(ContentType.JSON)
+                        .body(clientToRegister)
+                .when()
+                        .post(urlApiClient+endpoitClient)
+                .then();
+    }
+
 }
