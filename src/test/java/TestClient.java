@@ -10,19 +10,19 @@ public class TestClient {
     String urlApiClient = "http://localhost:8080/";
     String endpointClients = "clientes";
     String endpoitClient = "cliente";
+    String emptyCustomerList = "{}";
 
     @Test
     @DisplayName("When get all clients then list should be empty")
     public void whenGetAllClientsThenListShouldBeEmpty() {
         deleteAllClients();
-        String expectedResponseBody = "{}";
         given()
                 .contentType(ContentType.JSON)
         .when()
                 .get(urlApiClient+endpointClients)
         .then()
                 .statusCode(200)
-                .assertThat().body(new IsEqual<>(expectedResponseBody));
+                .assertThat().body(new IsEqual<>(emptyCustomerList));
     }
 
     @Test
@@ -85,14 +85,13 @@ public class TestClient {
      */
     public void deleteAllClients() {
         String endpointDeleteAll = "/apagaTodos";
-        String expectedResponseBody = "{}";
         given()
                 .contentType(ContentType.JSON)
         .when()
                 .delete(urlApiClient+endpoitClient+endpointDeleteAll)
         .then()
                 .statusCode(200)
-                .assertThat().body(new IsEqual<>(expectedResponseBody));
+                .assertThat().body(new IsEqual<>(emptyCustomerList));
     }
 
 }
