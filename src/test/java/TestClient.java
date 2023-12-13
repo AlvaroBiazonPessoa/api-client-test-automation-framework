@@ -43,8 +43,8 @@ public class TestClient {
     }
 
     @Test
-    @DisplayName("When registering a client. Then the client must be available in the results")
-    public void whenRegisteringAClientThenTheClientMustBeAvailableInTheResults() {
+    @DisplayName("When registering a client. Then the client should be shown in the result")
+    public void whenRegisteringAClientThenTheClientShouldBeShownInTheResult() {
         Client clientToRegister = new Client("Ivan", 5, 33);
         registerClient(clientToRegister)
                 .statusCode(HttpStatus.SC_CREATED)
