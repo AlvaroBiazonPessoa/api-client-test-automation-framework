@@ -19,7 +19,7 @@ public class TestClient {
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .get(urlApiClient)
+                .get(urlApiClient+endpointClients)
         .then()
                 .statusCode(200)
                 .assertThat().body(new IsEqual<>(expectedResponseBody));
