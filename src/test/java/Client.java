@@ -1,20 +1,20 @@
 public class Client {
 
-    private String name;
-    private int id, age;
+    private String nome;
+    private int id, idade;
 
-    public Client(String name, int id, int age) {
-        this.name = name;
+    public Client(String nome, int id, int idade) {
+        this.nome = nome;
         this.id = id;
-        this.age = age;
+        this.idade = idade;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public int getId() {
@@ -25,11 +25,11 @@ public class Client {
         this.id = id;
     }
 
-    public int getAge() {
-        return age;
+    public int getIdade() {
+        return idade;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 }
