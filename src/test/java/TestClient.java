@@ -14,7 +14,7 @@ public class TestClient {
     String emptyClientList = "{}";
 
     @Test
-    @DisplayName("When get all clients then list should be empty")
+    @DisplayName("When get all clients. Then list should be empty")
     public void whenGetAllClientsThenListShouldBeEmpty() {
         deleteAllClients();
         given()
