@@ -1,4 +1,5 @@
 import io.restassured.http.ContentType;
+import org.apache.http.HttpStatus;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ public class TestClient {
         .when()
                 .get(urlApiClient+endpointClients)
         .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .assertThat().body(new IsEqual<>(emptyClientList));
     }
 
@@ -61,7 +62,7 @@ public class TestClient {
         .when()
                 .put(urlApiClient+endpoitClient)
         .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .assertThat().body(containsString(bodyOfExpectedResponse));
     }
 
@@ -75,7 +76,7 @@ public class TestClient {
         .when()
                 .delete(urlApiClient+endpoitClient+"/"+clientId)
         .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .assertThat().body(containsString(bodyOfExpectedResponse));
     }
 
@@ -90,7 +91,7 @@ public class TestClient {
         .when()
                 .delete(urlApiClient+endpoitClient+endpointDeleteAll)
         .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .assertThat().body(new IsEqual<>(emptyClientList));
     }
 
