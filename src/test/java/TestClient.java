@@ -38,7 +38,7 @@ public class TestClient {
                 .contentType(ContentType.JSON)
                 .body(clienteToRegister)
         .when()
-                .post(clientApiAddress+endpoitClient)
+                .post(urlApiClient+endpoitClient)
         .then()
                 .statusCode(201)
                 .assertThat().body(containsString(bodyOfExpectedResponse));
@@ -58,7 +58,7 @@ public class TestClient {
                 .contentType(ContentType.JSON)
                 .body(clienttoUpdate)
         .when()
-                .put(clientApiAddress+endpoitClient)
+                .put(urlApiClient+endpoitClient)
         .then()
                 .statusCode(200)
                 .assertThat().body(containsString(bodyOfExpectedResponse));
@@ -72,7 +72,7 @@ public class TestClient {
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .delete(clientApiAddress+endpoitClient+"/"+clientId)
+                .delete(urlApiClient+endpoitClient+"/"+clientId)
         .then()
                 .statusCode(200)
                 .assertThat().body(containsString(bodyOfExpectedResponse));
