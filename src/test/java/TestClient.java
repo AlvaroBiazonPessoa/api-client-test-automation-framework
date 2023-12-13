@@ -54,8 +54,8 @@ public class TestClient {
     }
 
     @Test
-    @DisplayName("When the client is updated. Then the updated client should be shown in the result")
-    public void whenTheClientIsUpdatedThenTheUpdatedClientShouldBeShownInTheResult() {
+    @DisplayName("When a client is updated. Then the updated client should be shown in the result")
+    public void whenAClientIsUpdatedThenTheUpdatedClientShouldBeShownInTheResult() {
         Client clientToUpdate = new Client("Mariana", 2, 23);
         registerClient(clientToUpdate);
         clientToUpdate.setNome("Wilson Pessoa");
