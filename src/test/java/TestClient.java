@@ -10,7 +10,7 @@ public class TestClient {
     String urlApiClient = "http://localhost:8080/";
     String endpointClients = "clientes";
     String endpoitClient = "cliente";
-    String emptyCustomerList = "{}";
+    String emptyClientList = "{}";
 
     @Test
     @DisplayName("When get all clients then list should be empty")
@@ -22,7 +22,7 @@ public class TestClient {
                 .get(urlApiClient+endpointClients)
         .then()
                 .statusCode(200)
-                .assertThat().body(new IsEqual<>(emptyCustomerList));
+                .assertThat().body(new IsEqual<>(emptyClientList));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class TestClient {
                 .delete(urlApiClient+endpoitClient+endpointDeleteAll)
         .then()
                 .statusCode(200)
-                .assertThat().body(new IsEqual<>(emptyCustomerList));
+                .assertThat().body(new IsEqual<>(emptyClientList));
     }
 
 }
