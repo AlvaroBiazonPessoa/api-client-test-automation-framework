@@ -14,6 +14,22 @@ public class TestClient {
     String emptyClientList = "{}";
 
     @Test
+    @DisplayName("When get a client. Then the client should be shown in the result")
+    public void whenGetAClientThenTheClientShouldBeShownInTheResult() {
+        Client clientToGet = new Client("Petrus", 12, 2);
+        registerClient(clientToGet);
+        given()
+                .contentType(ContentType.JSON)
+        .when()
+                .get(urlApiClient+endpoitClient+"/"+clientToGet.getId())
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(clientToGet.getId() + ".nome", equalTo(clientToGet.getNome()))
+                .body(clientToGet.getId() + ".idade", equalTo(clientToGet.getIdade()))
+                .body(clientToGet.getId() + ".id", equalTo(clientToGet.getId()));
+    }
+
+    @Test
     @DisplayName("When get all clients. Then list should be empty")
     public void whenGetAllClientsThenListShouldBeEmpty() {
         deleteAllClients();
