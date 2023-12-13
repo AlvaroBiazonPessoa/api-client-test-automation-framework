@@ -13,7 +13,7 @@ public class TestClient {
 
     @Test
     @DisplayName("When get all clients then list should be empty")
-    public void getAllClients() {
+    public void whenGetAllClientsThenListShouldBeEmpty() {
         deleteAllClients();
         String expectedResponseBody = "{}";
         given()
