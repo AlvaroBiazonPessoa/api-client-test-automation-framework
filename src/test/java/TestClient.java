@@ -42,19 +42,19 @@ public class TestClient {
     @Test
     @DisplayName("When the client is updated. Then the new information should appear in the result")
     public void whenTheClientIsUpdatedThenTheNewInformationShouldAppearInTheResult() {
-        Client clienttoUpdate = new Client("Mariana", 2, 23);
-        registerClient(clienttoUpdate);
-        clienttoUpdate.setNome("Wilson Pessoa");
-        clienttoUpdate.setIdade(78);
+        Client clientToUpdate = new Client("Mariana", 2, 23);
+        registerClient(clientToUpdate);
+        clientToUpdate.setNome("Wilson Pessoa");
+        clientToUpdate.setIdade(78);
         given()
                 .contentType(ContentType.JSON)
-                .body(clienttoUpdate)
+                .body(clientToUpdate)
         .when()
                 .put(urlApiClient+endpoitClient)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(clienttoUpdate.getId() + ".nome", equalTo(clienttoUpdate.getNome()))
-                .body(clienttoUpdate.getId() + ".idade", equalTo(clienttoUpdate.getIdade()));
+                .body(clientToUpdate.getId() + ".nome", equalTo(clientToUpdate.getNome()))
+                .body(clientToUpdate.getId() + ".idade", equalTo(clientToUpdate.getIdade()));
     }
 
     @Test
