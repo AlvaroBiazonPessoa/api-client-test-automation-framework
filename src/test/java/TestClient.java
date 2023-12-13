@@ -21,12 +21,12 @@ public class TestClient {
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .get(urlApiClient+endpoitClient+"/"+clientToGet.getId())
+                .get(urlApiClient + endpoitClient + "/" + clientToGet.getId())
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(clientToGet.getId() + ".nome", equalTo(clientToGet.getNome()))
-                .body(clientToGet.getId() + ".idade", equalTo(clientToGet.getIdade()))
-                .body(clientToGet.getId() + ".id", equalTo(clientToGet.getId()));
+                .body("nome", equalTo(clientToGet.getNome()))
+                .body("idade", equalTo(clientToGet.getIdade()))
+                .body("id", equalTo(clientToGet.getId()));
     }
 
     @Test
