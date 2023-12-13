@@ -78,4 +78,20 @@ public class TestClient {
                 .assertThat().body(containsString(bodyOfExpectedResponse));
     }
 
+    /*
+     * Support function
+     * @author Alvaro Biazon Pessoa
+     */
+    public void deleteAllClients() {
+        String endpointDeleteAll = "/apagaTodos";
+        String expectedResponseBody = "{}";
+        given()
+                .contentType(ContentType.JSON)
+        .when()
+                .delete(urlApiClient+endpoitClient+endpointDeleteAll)
+        .then()
+                .statusCode(200)
+                .assertThat().body(new IsEqual<>(expectedResponseBody));
+    }
+
 }
