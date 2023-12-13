@@ -8,6 +8,7 @@ import static org.hamcrest.Matchers.containsString;
 public class TestClient {
 
     String clientApiAddress = "http://localhost:8080/";
+    String endpointClients = "clientes";
     String endpoitClient = "cliente";
 
     @Test
