@@ -25,7 +25,7 @@ public class TestClient {
                 .get(urlApiClient+endpointClients)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .assertThat().body(new IsEqual<>(emptyClientList));
+                .body(equalTo(emptyClientList));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class TestClient {
                 .delete(urlApiClient+endpoitClient+endpointDeleteAll)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .assertThat().body(new IsEqual<>(emptyClientList));
+                .body(equalTo(emptyClientList));
     }
 
     /*
