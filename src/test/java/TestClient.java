@@ -30,13 +30,13 @@ public class TestClient {
     }
 
     @Test
-    @DisplayName("When get all clients. Then list should be empty")
-    public void whenGetAllClientsThenListShouldBeEmpty() {
+    @DisplayName("When get all clients. Then the clients list must be empty")
+    public void whenGetAllClientsThenTheClientsListMustBeEmpty() {
         deleteAllClients();
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .get(urlApiClient+endpointClients)
+                .get(urlApiClient + endpointClients)
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo(emptyClientList));
