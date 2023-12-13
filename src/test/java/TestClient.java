@@ -40,15 +40,12 @@ public class TestClient {
     }
 
     @Test
-    @DisplayName("When the client is updated, then the new information should appear in the result")
-    public void updateClient() {
-        String clienttoUpdate = "{\n" +
-                "  \"id\": 3,\n" +
-                "  \"idade\": 33,\n" +
-                "  \"nome\": \"Ivan Carneiro\",\n" +
-                "  \"risco\": 1\n" +
-                "}";
-        String bodyOfExpectedResponse = "{\"3\":{\"nome\":\"Ivan Carneiro\",\"idade\":33,\"id\":3,\"risco\":1}}";
+    @DisplayName("When the client is updated. Then the new information should appear in the result")
+    public void whenTheClientIsUpdatedThenTheNewInformationShouldAppearInTheResult() {
+        Client clienttoUpdate = new Client("Mariana", 2, 23);
+        registerClient(clienttoUpdate);
+        clienttoUpdate.setNome("Wilson Pessoa");
+        clienttoUpdate.setIdade(78);
         given()
                 .contentType(ContentType.JSON)
                 .body(clienttoUpdate)
@@ -56,7 +53,8 @@ public class TestClient {
                 .put(urlApiClient+endpoitClient)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .assertThat().body(containsString(bodyOfExpectedResponse));
+                .body(clienttoUpdate.getId() + ".nome", equalTo(clienttoUpdate.getNome()))
+                .body(clienttoUpdate.getId() + ".idade", equalTo(clienttoUpdate.getIdade()));
     }
 
     @Test
