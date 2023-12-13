@@ -72,17 +72,17 @@ public class TestClient {
     }
 
     @Test
-    @DisplayName("When deleting a client. Then the information of the removed client should be shown")
-    public void whenDeletingAClientThenTheInformationOfTheRemovedClientShouldBeShown() {
+    @DisplayName("When deleting a client. Then the removed client should be shown")
+    public void whenDeletingAClientThenTheRemovedClientShouldBeShown() {
         Client clientToDelete = new Client("Beatriz", 6, 24);
         registerClient(clientToDelete);
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .delete(urlApiClient+endpoitClient+"/"+clientToDelete.getId())
+                .delete(urlApiClient + endpoitClient + "/" + clientToDelete.getId())
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo("CLIENTE REMOVIDO: { NOME: "+clientToDelete.getNome()+", IDADE: "+clientToDelete.getIdade()+", ID: "+clientToDelete.getId()+" }"));
+                .body(equalTo("CLIENTE REMOVIDO: { NOME: " + clientToDelete.getNome() + ", IDADE: " + clientToDelete.getIdade() + ", ID: " + clientToDelete.getId() + " }"));
     }
 
     /*
