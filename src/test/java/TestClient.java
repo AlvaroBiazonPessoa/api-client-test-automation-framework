@@ -1,10 +1,12 @@
 import io.restassured.http.ContentType;
+import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 
 public class TestClient {
 
@@ -27,23 +29,14 @@ public class TestClient {
     }
 
     @Test
-    @DisplayName("When registering a client, it must be available in the results")
-    public void registerClient() {
-        String clienteToRegister = "{\n" +
-                "  \"id\": 3,\n" +
-                "  \"idade\": 24,\n" +
-                "  \"nome\": \"Beatriz\",\n" +
-                "  \"risco\": 10\n" +
-                "}";
-        String bodyOfExpectedResponse = "{\"3\":{\"nome\":\"Beatriz\",\"idade\":24,\"id\":3,\"risco\":10}}";
-        given()
-                .contentType(ContentType.JSON)
-                .body(clienteToRegister)
-        .when()
-                .post(urlApiClient+endpoitClient)
-        .then()
+    @DisplayName("When registering a client. Then the client must be available in the results")
+    public void whenRegisteringAClientThenTheClientMustBeAvailableInTheResults() {
+        Client clientToRegister = new Client("Ivan", 5, 33);
+        registerClient(clientToRegister)
                 .statusCode(HttpStatus.SC_CREATED)
-                .assertThat().body(containsString(bodyOfExpectedResponse));
+                .body(clientToRegister.getId() + ".nome", equalTo(clientToRegister.getNome()))
+                .body(clientToRegister.getId() + ".idade", equalTo(clientToRegister.getIdade()))
+                .body(clientToRegister.getId() + ".id", equalTo(clientToRegister.getId()));
     }
 
     @Test
