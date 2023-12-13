@@ -14,15 +14,14 @@ public class TestClient {
     @Test
     @DisplayName("When get all clients then list should be empty")
     public void getAllClients() {
-        String expectedResponse = "{}";
-
+        String expectedResponseBody = "{}";
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .get(clientApiAddress)
+                .get(urlApiClient)
         .then()
                 .statusCode(200)
-                .assertThat().body(new IsEqual<>(expectedResponse));
+                .assertThat().body(new IsEqual<>(expectedResponseBody));
     }
 
     @Test
