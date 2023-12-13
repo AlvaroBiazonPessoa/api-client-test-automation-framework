@@ -42,7 +42,7 @@ public class TestClient {
         .when()
                 .post(urlApiClient+endpoitClient)
         .then()
-                .statusCode(201)
+                .statusCode(HttpStatus.SC_CREATED)
                 .assertThat().body(containsString(bodyOfExpectedResponse));
     }
 
