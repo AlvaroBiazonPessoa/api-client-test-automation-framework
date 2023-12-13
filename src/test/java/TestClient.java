@@ -58,17 +58,17 @@ public class TestClient {
     }
 
     @Test
-    @DisplayName("When deleting a client, then the information of the removed client should be shown")
-    public void deleteAClient() {
-        int clientId = 3;
-        String bodyOfExpectedResponse = "CLIENTE REMOVIDO: { NOME: Beatriz, IDADE: 24, ID: "+clientId+" }";
+    @DisplayName("When deleting a client. Then the information of the removed client should be shown")
+    public void whenDeletingAClientThenTheInformationOfTheRemovedClientShouldBeShown() {
+        Client clientToDelete = new Client("Beatriz", 6, 24);
+        registerClient(clientToDelete);
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .delete(urlApiClient+endpoitClient+"/"+clientId)
+                .delete(urlApiClient+endpoitClient+"/"+clientToDelete.getId())
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .assertThat().body(containsString(bodyOfExpectedResponse));
+                .body(equalTo("CLIENTE REMOVIDO: { NOME: "+clientToDelete.getNome()+", IDADE: "+clientToDelete.getIdade()+", ID: "+clientToDelete.getId()+" }"));
     }
 
     /*
