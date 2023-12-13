@@ -8,10 +8,10 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class TestClient {
 
-    String urlApiClient = "http://localhost:8080/";
-    String endpointClients = "clientes";
-    String endpoitClient = "cliente";
-    String emptyClientList = "{}";
+    private static final String URL_API_CLIENT = "http://localhost:8080/";
+    private static final String ENDPOINT_CLIENTS = "clientes";
+    private static final String ENDPOINT_CLIENT = "cliente";
+    private static final String EMPTY_CLIENT_LIST = "{}";
 
     @Test
     @DisplayName("When get a client. Then the client should be shown in the result")
@@ -21,7 +21,7 @@ public class TestClient {
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .get(urlApiClient + endpoitClient + "/" + clientToGet.getId())
+                .get(URL_API_CLIENT + ENDPOINT_CLIENT + "/" + clientToGet.getId())
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body("nome", equalTo(clientToGet.getNome()))
@@ -36,10 +36,10 @@ public class TestClient {
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .get(urlApiClient + endpointClients)
+                .get(URL_API_CLIENT + ENDPOINT_CLIENTS)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo(emptyClientList));
+                .body(equalTo(EMPTY_CLIENT_LIST));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class TestClient {
                 .contentType(ContentType.JSON)
                 .body(clientToUpdate)
         .when()
-                .put(urlApiClient + endpoitClient)
+                .put(URL_API_CLIENT + ENDPOINT_CLIENT)
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(clientToUpdate.getId() + ".nome", equalTo(clientToUpdate.getNome()))
@@ -79,7 +79,7 @@ public class TestClient {
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .delete(urlApiClient + endpoitClient + "/" + clientToDelete.getId())
+                .delete(URL_API_CLIENT + ENDPOINT_CLIENT + "/" + clientToDelete.getId())
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo("CLIENTE REMOVIDO: { NOME: " + clientToDelete.getNome() + ", IDADE: " + clientToDelete.getIdade() + ", ID: " + clientToDelete.getId() + " }"));
@@ -94,10 +94,10 @@ public class TestClient {
         given()
                 .contentType(ContentType.JSON)
         .when()
-                .delete(urlApiClient+endpoitClient+endpointDeleteAll)
+                .delete(URL_API_CLIENT + ENDPOINT_CLIENT + endpointDeleteAll)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(equalTo(emptyClientList));
+                .body(equalTo(EMPTY_CLIENT_LIST));
     }
 
     /*
@@ -111,7 +111,7 @@ public class TestClient {
                         .contentType(ContentType.JSON)
                         .body(clientToRegister)
                 .when()
-                        .post(urlApiClient+endpoitClient)
+                        .post(URL_API_CLIENT + ENDPOINT_CLIENT)
                 .then();
     }
 
