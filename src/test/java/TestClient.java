@@ -14,6 +14,7 @@ public class TestClient {
     @Test
     @DisplayName("When get all clients then list should be empty")
     public void getAllClients() {
+        deleteAllClients();
         String expectedResponseBody = "{}";
         given()
                 .contentType(ContentType.JSON)
