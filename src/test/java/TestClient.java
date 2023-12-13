@@ -74,7 +74,7 @@ public class TestClient {
     }
 
     /*
-     * Support function
+     * Support function to delete all clients
      * @author Alvaro Biazon Pessoa
      */
     public void deleteAllClients() {
