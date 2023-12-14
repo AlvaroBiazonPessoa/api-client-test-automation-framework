@@ -1,3 +1,7 @@
+/*
+ * POJO class to build client entity for automated tests
+ * @author Alvaro Biazon Pessoa
+ */
 public class Client {
 
     private String nome;
