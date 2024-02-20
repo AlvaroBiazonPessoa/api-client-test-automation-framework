@@ -52,10 +52,10 @@ public class TestClient {
     @DisplayName("When registering a client. Then the client should be shown in the result")
     public void whenRegisteringAClientThenTheClientShouldBeShownInTheResult() {
         Client clientToRegister = new Client("Eduardo", 13, 30);
-        String content = readFile(FILE_PATH, REGISTER_CLIENT_JSON_SCHEMA_FILE_NAME);
+        String jsonFileContent = readFile(FILE_PATH, REGISTER_CLIENT_JSON_SCHEMA_FILE_NAME);
         registerClient(clientToRegister)
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(JsonSchemaValidator.matchesJsonSchema(content))
+                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent))
                 .body(clientToRegister.getId() + ".nome", equalTo(clientToRegister.getNome()))
                 .body(clientToRegister.getId() + ".idade", equalTo(clientToRegister.getIdade()))
                 .body(clientToRegister.getId() + ".id", equalTo(clientToRegister.getId()));
