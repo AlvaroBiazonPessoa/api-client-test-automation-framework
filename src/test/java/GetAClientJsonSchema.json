@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "default": {},
+  "title": "Root Schema",
+  "required": [
+    "nome",
+    "idade",
+    "id",
+    "risco"
+  ],
+  "properties": {
+    "nome": {
+      "type": "string",
+      "default": "",
+      "title": "The nome Schema",
+      "examples": [
+        "Alvaro Biazon Pessoa"
+      ]
+    },
+    "idade": {
+      "type": "integer",
+      "default": 0,
+      "title": "The idade Schema",
+      "examples": [
+        24
+      ]
+    },
+    "id": {
+      "type": "integer",
+      "default": 0,
+      "title": "The id Schema",
+      "examples": [
+        1
+      ]
+    },
+    "risco": {
+      "type": "integer",
+      "default": 0,
+      "title": "The risco Schema",
+      "examples": [
+        0
+      ]
+    }
+  },
+  "examples": [{
+    "nome": "Alvaro Biazon Pessoa",
+    "idade": 24,
+    "id": 1,
+    "risco": 0
+  }]
+}
