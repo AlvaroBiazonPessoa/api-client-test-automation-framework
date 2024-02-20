@@ -71,6 +71,7 @@ public class TestClient {
     @DisplayName("When a client is updated. Then the updated client should be shown in the result")
     public void whenAClientIsUpdatedThenTheUpdatedClientShouldBeShownInTheResult() {
         Client clientToUpdate = new Client("Mariana", 2, 23);
+        String jsonFileContent = readFile(FILE_PATH, REGISTER_AND_UPDATE_CLIENT_JSON_SCHEMA_FILE_NAME);
         registerClient(clientToUpdate);
         clientToUpdate.setNome("Wilson Pessoa");
         clientToUpdate.setIdade(78);
@@ -81,6 +82,7 @@ public class TestClient {
                 .put(URL_API_CLIENT + ENDPOINT_CLIENT)
         .then()
                 .statusCode(HttpStatus.SC_OK)
+                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent))
                 .body(clientToUpdate.getId() + ".nome", equalTo(clientToUpdate.getNome()))
                 .body(clientToUpdate.getId() + ".idade", equalTo(clientToUpdate.getIdade()));
     }
