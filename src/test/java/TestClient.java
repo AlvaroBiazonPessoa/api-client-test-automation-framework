@@ -17,7 +17,7 @@ public class TestClient {
     private static final String ENDPOINT_CLIENT = "cliente";
     private static final String EMPTY_CLIENT_LIST = "{}";
     private static final String FILE_PATH = "src/test/java/";
-    private static final String REGISTER_CLIENT_JSON_SCHEMA_FILE_NAME = "RegisterClientJsonSchema.json";
+    private static final String REGISTER_AND_UPDATE_CLIENT_JSON_SCHEMA_FILE_NAME = "RegisterAndUpdateClientJsonSchema.json";
     private static final String GET_A_CLIENT_JSON_SCHEMA_FILE_NAME = "GetAClientJsonSchema.json";
     private static final String GET_ALL_CLIENTS_JSON_SCHEMA_FILE_NAME = "GetAllClientsJsonSchema.json";
 
@@ -58,7 +58,7 @@ public class TestClient {
     @DisplayName("When registering a client. Then the client should be shown in the result")
     public void whenRegisteringAClientThenTheClientShouldBeShownInTheResult() {
         Client clientToRegister = new Client("Eduardo", 13, 30);
-        String jsonFileContent = readFile(FILE_PATH, REGISTER_CLIENT_JSON_SCHEMA_FILE_NAME);
+        String jsonFileContent = readFile(FILE_PATH, REGISTER_AND_UPDATE_CLIENT_JSON_SCHEMA_FILE_NAME);
         registerClient(clientToRegister)
                 .statusCode(HttpStatus.SC_CREATED)
                 .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent))
