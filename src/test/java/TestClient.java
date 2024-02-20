@@ -1,10 +1,14 @@
 import io.restassured.http.ContentType;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import org.apache.commons.io.FileUtils;
+import java.io.File;
+import java.io.IOException;
 
 public class TestClient {
 
@@ -12,11 +16,13 @@ public class TestClient {
     private static final String ENDPOINT_CLIENTS = "clientes";
     private static final String ENDPOINT_CLIENT = "cliente";
     private static final String EMPTY_CLIENT_LIST = "{}";
+    private static final String FILE_PATH = "src/test/java/";
+    private static final String REGISTER_CLIENT_JSON_SCHEMA_FILE_NAME = "RegisterClientJsonSchema.json";
 
     @Test
     @DisplayName("When get a client. Then the client should be shown in the result")
     public void whenGetAClientThenTheClientShouldBeShownInTheResult() {
-        Client clientToGet = new Client("Petrus", 12, 2);
+        Client clientToGet = new Client("Petrus", 10, 2);
         registerClient(clientToGet);
         given()
                 .contentType(ContentType.JSON)
@@ -45,9 +51,11 @@ public class TestClient {
     @Test
     @DisplayName("When registering a client. Then the client should be shown in the result")
     public void whenRegisteringAClientThenTheClientShouldBeShownInTheResult() {
-        Client clientToRegister = new Client("Ivan", 5, 33);
+        Client clientToRegister = new Client("Eduardo", 13, 30);
+        String content = readFile(FILE_PATH, REGISTER_CLIENT_JSON_SCHEMA_FILE_NAME);
         registerClient(clientToRegister)
                 .statusCode(HttpStatus.SC_CREATED)
+                .body(JsonSchemaValidator.matchesJsonSchema(content))
                 .body(clientToRegister.getId() + ".nome", equalTo(clientToRegister.getNome()))
                 .body(clientToRegister.getId() + ".idade", equalTo(clientToRegister.getIdade()))
                 .body(clientToRegister.getId() + ".id", equalTo(clientToRegister.getId()));
@@ -113,6 +121,23 @@ public class TestClient {
                 .when()
                         .post(URL_API_CLIENT + ENDPOINT_CLIENT)
                 .then();
+    }
+
+    /*
+     * Read a file
+     * @param filePath path where the file is
+     * @param fileName name of the file to be read
+     * @return the contents of the file
+     * @author Alvaro Biazon Pessoa
+     */
+    public String readFile(String filePath, String fileName) {
+        String content = null;
+        try {
+            content = FileUtils.readFileToString(new File(filePath + fileName), "UTF-8");
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+        return content;
     }
 
 }
