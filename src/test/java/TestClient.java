@@ -25,7 +25,6 @@ public class TestClient {
     @DisplayName("When get a client. Then the client should be shown in the result")
     public void whenGetAClientThenTheClientShouldBeShownInTheResult() {
         Client clientToGet = new Client("Petrus", 10, 2);
-        String jsonFileContent = readFile(FILE_PATH, GET_A_CLIENT_JSON_SCHEMA_FILE_NAME);
         registerClient(clientToGet);
         given()
                 .contentType(ContentType.JSON)
@@ -33,7 +32,6 @@ public class TestClient {
                 .get(URL_API_CLIENT + ENDPOINT_CLIENT + "/" + clientToGet.getId())
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent))
                 .body("nome", equalTo(clientToGet.getNome()))
                 .body("idade", equalTo(clientToGet.getIdade()))
                 .body("id", equalTo(clientToGet.getId()));
@@ -109,6 +107,21 @@ public class TestClient {
         .when()
                 .get(URL_API_CLIENT + ENDPOINT_CLIENTS)
         .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent));
+    }
+
+    @Test
+    @DisplayName("When get a client. Then the JSON schema of the request response body must be correct")
+    public void whenGetAClientThenTheJsonSchemaOfTheRequestResponseBodyMustBeCorrect() {
+        Client clientToGet = new Client("Petrus", 10, 2);
+        String jsonFileContent = readFile(FILE_PATH, GET_A_CLIENT_JSON_SCHEMA_FILE_NAME);
+        registerClient(clientToGet);
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(URL_API_CLIENT + ENDPOINT_CLIENT + "/" + clientToGet.getId())
+                .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent));
     }
