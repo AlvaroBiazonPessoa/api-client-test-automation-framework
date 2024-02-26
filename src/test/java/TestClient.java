@@ -54,10 +54,8 @@ public class TestClient {
     @DisplayName("When registering a client. Then the client should be shown in the result")
     public void whenRegisteringAClientThenTheClientShouldBeShownInTheResult() {
         Client clientToRegister = new Client("Eduardo", 13, 30);
-        String jsonFileContent = readFile(FILE_PATH, REGISTER_AND_UPDATE_CLIENT_JSON_SCHEMA_FILE_NAME);
         registerClient(clientToRegister)
                 .statusCode(HttpStatus.SC_CREATED)
-                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent))
                 .body(clientToRegister.getId() + ".nome", equalTo(clientToRegister.getNome()))
                 .body(clientToRegister.getId() + ".idade", equalTo(clientToRegister.getIdade()))
                 .body(clientToRegister.getId() + ".id", equalTo(clientToRegister.getId()));
@@ -123,6 +121,17 @@ public class TestClient {
                 .get(URL_API_CLIENT + ENDPOINT_CLIENT + "/" + clientToGet.getId())
                 .then()
                 .statusCode(HttpStatus.SC_OK)
+                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent));
+    }
+
+    @Test
+    @DisplayName("When registering a client. Then the JSON schema of the request response body must be correct")
+    public void whenRegisteringAClientThenTheJsonSchemaOfTheRequestResponseBodyMustBeCorrect() {
+        deleteAllClients();
+        Client clientToRegister = new Client("Fernando", 27, 30);
+        String jsonFileContent = readFile(FILE_PATH, REGISTER_AND_UPDATE_CLIENT_JSON_SCHEMA_FILE_NAME);
+        registerClient(clientToRegister)
+                .statusCode(HttpStatus.SC_CREATED)
                 .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent));
     }
 
