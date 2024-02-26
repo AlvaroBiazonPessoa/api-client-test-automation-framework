@@ -43,14 +43,12 @@ public class TestClient {
     @DisplayName("When get all clients. Then the clients list must be empty")
     public void whenGetAllClientsThenTheClientsListMustBeEmpty() {
         deleteAllClients();
-        String jsonFileContent = readFile(FILE_PATH, GET_ALL_CLIENTS_JSON_SCHEMA_FILE_NAME);
         given()
                 .contentType(ContentType.JSON)
         .when()
                 .get(URL_API_CLIENT + ENDPOINT_CLIENTS)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent))
                 .body(equalTo(EMPTY_CLIENT_LIST));
     }
 
@@ -99,6 +97,20 @@ public class TestClient {
         .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(equalTo("CLIENTE REMOVIDO: { NOME: " + clientToDelete.getNome() + ", IDADE: " + clientToDelete.getIdade() + ", ID: " + clientToDelete.getId() + " }"));
+    }
+
+    @Test
+    @DisplayName("When get all clients. Then the JSON schema of the request response body must be correct")
+    public void whenGetAllClientsThenTheJsonSchemaOfTheRequestResponseBodyMustBeCorrect() {
+        deleteAllClients();
+        String jsonFileContent = readFile(FILE_PATH, GET_ALL_CLIENTS_JSON_SCHEMA_FILE_NAME);
+        given()
+                .contentType(ContentType.JSON)
+        .when()
+                .get(URL_API_CLIENT + ENDPOINT_CLIENTS)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent));
     }
 
     /*
