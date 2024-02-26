@@ -65,7 +65,6 @@ public class TestClient {
     @DisplayName("When a client is updated. Then the updated client should be shown in the result")
     public void whenAClientIsUpdatedThenTheUpdatedClientShouldBeShownInTheResult() {
         Client clientToUpdate = new Client("Mariana", 2, 23);
-        String jsonFileContent = readFile(FILE_PATH, REGISTER_AND_UPDATE_CLIENT_JSON_SCHEMA_FILE_NAME);
         registerClient(clientToUpdate);
         clientToUpdate.setNome("Wilson Pessoa");
         clientToUpdate.setIdade(78);
@@ -76,7 +75,6 @@ public class TestClient {
                 .put(URL_API_CLIENT + ENDPOINT_CLIENT)
         .then()
                 .statusCode(HttpStatus.SC_OK)
-                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent))
                 .body(clientToUpdate.getId() + ".nome", equalTo(clientToUpdate.getNome()))
                 .body(clientToUpdate.getId() + ".idade", equalTo(clientToUpdate.getIdade()));
     }
@@ -132,6 +130,24 @@ public class TestClient {
         String jsonFileContent = readFile(FILE_PATH, REGISTER_AND_UPDATE_CLIENT_JSON_SCHEMA_FILE_NAME);
         registerClient(clientToRegister)
                 .statusCode(HttpStatus.SC_CREATED)
+                .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent));
+    }
+
+    @Test
+    @DisplayName("When a client is updated. Then the JSON schema of the request response body must be correct")
+    public void whenAClientIsUpdatedTheJsonSchemaOfTheRequestResponseBodyMustBeCorrect() {
+        Client clientToUpdate = new Client("Ines", 12, 66);
+        String jsonFileContent = readFile(FILE_PATH, REGISTER_AND_UPDATE_CLIENT_JSON_SCHEMA_FILE_NAME);
+        registerClient(clientToUpdate);
+        clientToUpdate.setNome("Luiz Pessoa");
+        clientToUpdate.setIdade(77);
+        given()
+                .contentType(ContentType.JSON)
+                .body(clientToUpdate)
+        .when()
+                .put(URL_API_CLIENT + ENDPOINT_CLIENT)
+        .then()
+                .statusCode(HttpStatus.SC_OK)
                 .body(JsonSchemaValidator.matchesJsonSchema(jsonFileContent));
     }
 
